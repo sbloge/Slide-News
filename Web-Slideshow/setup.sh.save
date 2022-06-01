@@ -1,0 +1,40 @@
+#!/bin/bash
+echo "Updating package manager"
+apt-get update
+
+echo "Installing Apache2"
+apt-get install apache2 -y
+
+apt-get install php -y
+
+echo "Installing PHP"
+apt-get install php libapache2-mod-php7.4 php-common php7.4 php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-readline php5 libapache2-mod-php5 php5-mcrypt php5-cgi lighttpd -y
+
+apt-get install lighttpd -y
+
+lighty-enable-mod fastcgi
+lighty-enable-mod fastcgi-php
+
+service lighttpd force-reload
+
+apt-get install pip -y
+
+pip install pdf2image
+
+echo "Installing git"
+apt-get install git -y
+
+rm /var/www/html/index.html
+echo "Cloning Git Repository"
+git clone https://github.com/sbloge/Web-Slideshow /var/www/html
+mkdir /var/www/html/imgs
+mkdir /var/www/html/tempimgs/
+mkdir /var/www/html/uploads
+chmod +x /var/www/html/draft1.py
+chmod +x /var/www/html/tempgen.py
+chown www-data /var/www/html
+chmod +777 /var/www/html/uploads
+chmod +777 /var/www/html/imgs
+chmod +777 /var/www/html/tempimgs
+chmod +777 /var/www/html/upload.php
+chmod +777 /var/www/html/index.html
